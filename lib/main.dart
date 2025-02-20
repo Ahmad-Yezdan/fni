@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fni/common/colors.dart';
 import 'package:fni/screens/splash_screen.dart';
 import 'package:get/get.dart';
 
@@ -15,9 +16,9 @@ class MyApp extends StatelessWidget {
       title: 'Fuzzy Normlaization Index',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
-      ),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+          useMaterial3: true,
+          scaffoldBackgroundColor: MyColors.scaffoldBackground),
       home: const SplashScreen(),
     );
   }
