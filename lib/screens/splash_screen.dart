@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
+import 'package:fni/common/colors.dart';
 import 'package:fni/screens/attributes_screen.dart';
 import 'package:get/get.dart';
 
@@ -33,13 +34,22 @@ class _SplashScreenState extends State<SplashScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Center(
-            child: Image.asset(
-              'assets/images/logo.png',
-              width: sizeOf.width * 0.6,
+            child: Neumorphic(
+              style: const NeumorphicStyle(
+                depth: 6,
+                intensity: 1,
+                surfaceIntensity: 0,
+                color: MyColors.scaffoldBackground,
+                boxShape: NeumorphicBoxShape.circle(),
+              ),
+              child: Image.asset(
+                'assets/images/logo.png',
+                width: sizeOf.width * 0.6,
+              ),
             ),
           ),
           const SizedBox(
-            height: 20,
+            height: 25,
           ),
           DefaultTextStyle(
             style: textTheme.headlineSmall!.copyWith(color: Colors.black),
