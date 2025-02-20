@@ -87,16 +87,11 @@ class _AttributesScreenState extends State<AttributesScreen> {
     // );
   }
 
-  // Slider values for depth, intensity, and surface intensity
-  double _depth = -4; // Default depth set to a middle value between -20 and 20
-  double _intensity = 1;
-  double _surfaceIntensity = 0;
 
   @override
   Widget build(BuildContext context) {
     var sizeOf = MediaQuery.sizeOf(context);
     var textTheme = Theme.of(context).textTheme;
-    var bgColor = Colors.white;
 
     return Scaffold(
       body: SafeArea(
@@ -173,7 +168,6 @@ class _AttributesScreenState extends State<AttributesScreen> {
                 ),
 
                 const SizedBox(height: 30),
-
                 // Neumorphic Next Button
                 NeumorphicButton(
                   onPressed: () {
