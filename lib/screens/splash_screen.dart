@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
-import 'package:fni/common/colors.dart';
+import 'package:fni/common/theme/colors.dart';
 import 'package:fni/screens/attributes_screen.dart';
 import 'package:get/get.dart';
 
@@ -26,7 +26,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var sizeOf = MediaQuery.sizeOf(context);
     var textTheme = Theme.of(context).textTheme;
     return Scaffold(
       body: Column(
@@ -39,12 +38,18 @@ class _SplashScreenState extends State<SplashScreen> {
                 depth: 6,
                 intensity: 1,
                 surfaceIntensity: 0,
-                color: MyColors.scaffoldBackground,
                 boxShape: NeumorphicBoxShape.circle(),
+                color: MyColors.primary,
               ),
-              child: Image.asset(
-                'assets/images/logo.png',
-                width: sizeOf.width * 0.6,
+              child: const Padding(
+                padding: EdgeInsets.all(28.0),
+                child: Text(
+                  "fni",
+                  style: TextStyle(
+                      fontSize: 127,
+                      fontFamily: "ArchivoBlack",
+                      color: MyColors.white),
+                ),
               ),
             ),
           ),

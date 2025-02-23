@@ -1,8 +1,9 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
-import 'package:fni/common/colors.dart';
+import 'package:fni/common/theme/colors.dart';
 import 'package:fni/common/constants/contants.dart';
 import 'package:fni/common/utils.dart';
+import 'package:fni/screens/functional_dependencies_screen.dart';
 
 class AttributesScreen extends StatefulWidget {
   const AttributesScreen({super.key});
@@ -14,8 +15,17 @@ class AttributesScreen extends StatefulWidget {
 class _AttributesScreenState extends State<AttributesScreen> {
   final TextEditingController _attributesController = TextEditingController();
 
-  // Function to handle the Next button press
-  void _validateAttributes(String? value) {
+  void _navigateToFunctionalDependenciesScreen(
+      BuildContext context, List<String> attributes) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) =>
+            FunctionalDependenciesScreen(attributes: attributes),
+      ),
+    );
+  }
+
+  void _validateAttributes(BuildContext context, String? value) {
     if (value == null || value.isEmpty) {
       showSnackBar(context, 'Please enter the attributes.');
       return;
@@ -28,14 +38,6 @@ class _AttributesScreenState extends State<AttributesScreen> {
     }
 
     final attributes = value.split(',');
-    final reservedKeywords = {
-      'SELECT',
-      'FROM',
-      'WHERE',
-      'INSERT',
-      'UPDATE',
-      'DELETE'
-    };
 
     // Check for uniqueness
     if (attributes.toSet().length != attributes.length) {
@@ -55,38 +57,47 @@ class _AttributesScreenState extends State<AttributesScreen> {
 
       // Regex validation
       if (!RegExp(r'^[a-zA-Z][a-zA-Z0-9_]*[a-zA-Z0-9]*$').hasMatch(attribute)) {
+        String attributeName = attribute.length >= 7
+            ? '${attribute.substring(0, 7)}...'
+            : attribute;
         showSnackBar(context,
-            'Invalid attribute name: $attribute. Attribute names must start with a letter and can only contain letters, numbers, or underscores.');
+            'Invalid attribute name: "$attributeName". Attribute names must start with a letter and can only contain letters, numbers, or underscores.');
         return;
       }
 
+      //TODO: confirm for Sir whether to add or not add this check
       // Reserved keyword check
-      if (reservedKeywords.contains(attribute.toUpperCase())) {
-        showSnackBar(context,
-            'Attribute name "$attribute" is a reserved keyword and cannot be used.');
-        return;
-      }
+      // final reservedKeywords = {
+      //   'SELECT',
+      //   'FROM',
+      //   'WHERE',
+      //   'INSERT',
+      //   'UPDATE',
+      //   'DELETE'
+      // };
+
+      // if (reservedKeywords.contains(attribute.toUpperCase())) {
+      //   showSnackBar(context,
+      //       'Attribute name "$attribute" is a reserved keyword and cannot be used.');
+      //   return;
+      // }
 
       // Length restriction
       if (attribute.length > 64) {
+        String attributeName = attribute.length >= 7
+            ? '${attribute.substring(0, 7)}...'
+            : attribute;
         showSnackBar(context,
-            'Attribute name "$attribute" exceeds the maximum length of 64 characters.');
+            'Attribute name "$attributeName" exceeds the maximum length of 64 characters.');
         return;
       }
     }
 
-    // final _attributes =
+    // final atrs =
     //     _attributesController.text.split(',').map((e) => e.trim()).toList();
-    // showSnackBar(context, attributes.toString());
-    // //Navigate to next screen with the attributes passed
-    // Navigator.of(context).push(
-    //   MaterialPageRoute(
-    //     builder: (context) =>
-    //         FunctionalDependenciesScreen(attributes: _attributes),
-    //   ),
-    // );
-  }
 
+    _navigateToFunctionalDependenciesScreen(context, attributes);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,28 +113,31 @@ class _AttributesScreenState extends State<AttributesScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: sizeOf.height * 0.1,
+                  height: sizeOf.height * 0.05,
                 ),
                 Center(
                   child: Neumorphic(
-                    style: NeumorphicStyle(
+                    style: const NeumorphicStyle(
                       depth: 6,
                       intensity: 1,
                       surfaceIntensity: 0,
+                      boxShape: NeumorphicBoxShape.circle(),
                       color: MyColors.scaffoldBackground,
-                      boxShape: Constants.boxShape,
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.asset(
-                        'assets/images/fni.png',
-                        width: sizeOf.width * 0.6,
+                    child: const Padding(
+                      padding: EdgeInsets.all(28.0),
+                      child: Text(
+                        "fni",
+                        style: TextStyle(
+                            fontSize: 127,
+                            fontFamily: "ArchivoBlack",
+                            color: MyColors.primary),
                       ),
                     ),
                   ),
                 ),
 
-                SizedBox(height: sizeOf.height * 0.07),
+                SizedBox(height: sizeOf.height * 0.04),
                 Align(
                   alignment: Alignment.topLeft,
                   child: Padding(
@@ -146,7 +160,7 @@ class _AttributesScreenState extends State<AttributesScreen> {
                     intensity: 1,
                     surfaceIntensity: 0,
                     color: MyColors.scaffoldBackground,
-                    boxShape: Constants.boxShape,
+                    boxShape: Constants.rectBoxShape,
                   ),
                   child: TextField(
                     controller: _attributesController,
@@ -171,14 +185,14 @@ class _AttributesScreenState extends State<AttributesScreen> {
                 // Neumorphic Next Button
                 NeumorphicButton(
                   onPressed: () {
-                    _validateAttributes(_attributesController.text);
+                    _validateAttributes(context, _attributesController.text);
                   },
                   style: NeumorphicStyle(
                     depth: 6,
                     intensity: 1,
                     surfaceIntensity: 0,
                     color: MyColors.scaffoldBackground,
-                    boxShape: Constants.boxShape,
+                    boxShape: Constants.rectBoxShape,
                   ),
                   child: Padding(
                     padding:
