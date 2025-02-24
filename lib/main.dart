@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fni/common/theme/app_bar_theme.dart';
 import 'package:fni/common/theme/colors.dart';
-import 'package:fni/screens/splash_screen.dart';
+import 'package:fni/features/splash/splash_screen.dart';
 import 'package:get/get.dart';
 
 void main() {

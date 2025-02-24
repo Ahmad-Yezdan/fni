@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
-import 'package:fni/common/constants/neumorphic_style.dart';
 import 'package:fni/common/theme/colors.dart';
-import 'package:fni/screens/attributes_screen.dart';
+import 'package:fni/common/widgets/neum_logo.dart';
+import 'package:fni/features/attributes/screens/attributes_screen.dart';
 import 'package:get/get.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 3), () async {
-      Get.offAll(
+      Get.off(
         const AttributesScreen(),
         transition: Transition.zoom,
         curve: Curves.linear,
@@ -35,20 +35,9 @@ class _SplashScreenState extends State<SplashScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Center(
-            child: Neumorphic(
-              style: NeumStyle.circle.copyWith(color: MyColors.primary),
-              child: const Padding(
-                padding: EdgeInsets.all(28.0),
-                child: Text(
-                  "fni",
-                  style: TextStyle(
-                      fontSize: 127,
-                      fontFamily: "ArchivoBlack",
-                      color: MyColors.white),
-                ),
-              ),
-            ),
+          const NeumLogo(
+            textColor: MyColors.white,
+            bgColor: MyColors.primary,
           ),
           const SizedBox(
             height: 25,
