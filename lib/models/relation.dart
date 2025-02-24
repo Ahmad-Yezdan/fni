@@ -16,6 +16,10 @@ class Relation {
       throw ArgumentError('Attributes must be unique.');
     }
 
+    if (fds.isEmpty) {
+      throw ArgumentError('Functional dependencies cannot be empty.');
+    }
+
     final uniqueFDs = fds.toSet();
     if (uniqueFDs.length < fds.length) {
       throw ArgumentError('Functional dependencies must be unique.');
