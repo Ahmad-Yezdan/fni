@@ -124,8 +124,7 @@ class Relation {
     for (var fd in relation.fds) {
       for (var key in relation.candidateKeys) {
         // Skip this FD if its determinant is whole candidate key
-        if (key.toSet().length == fd.determinant.toSet().length &&
-            key.toSet().containsAll(fd.determinant.toSet())) {
+        if (setEquals(key, fd.determinant)) {
           continue outer;
         }
       }
@@ -200,86 +199,5 @@ class Relation {
     }
     return false; // No matching candidate key found
   }
-
-    // normal form functions
-  bool isInFirstNormalForm(Relation relation) {
-    // Assume all attributes are atomic
-    return relation.attributes.isNotEmpty; // Ensure attributes are present
-  }
-
-  bool isInSecondNormalForm(Relation relation) {
-    bool isInSecondNormalForm = true;
-    if (!isInFirstNormalForm(relation)) {
-      isInSecondNormalForm = false;
-      return isInSecondNormalForm;
-    }
-
-    outer:
-    for (var fd in relation.fds) {
-      for (var key in relation.candidateKeys) {
-        // Skip this FD if its determinant is whole candidate key
-        if (key.toSet().length == fd.determinant.toSet().length &&
-            key.toSet().containsAll(fd.determinant.toSet())) {
-          continue outer;
-        }
-      }
-
-      // Skip this FD if its dependent is a prime attribute
-      if (relation.primeAttributes.contains(fd.dependent)) {
-        continue;
-      }
-      // Check for partial dependencies
-      for (var key in relation.candidateKeys) {
-        // If the determinant is part of the candidate key
-        if (key.length > 1 && key.any((k) => fd.determinant.contains(k))) {
-          isInSecondNormalForm = false;
-          print("Partial Dependency fount at: $fd");
-        }
-      }
-    }
-
-    return isInSecondNormalForm;
-  }
-
-  bool isInThirdNormalForm(Relation relation) {
-    bool isInThirdNormalForm = true;
-    if (!isInSecondNormalForm(relation)) {
-      isInThirdNormalForm = false;
-      return isInThirdNormalForm;
-    }
-
-    for (var fd in relation.fds) {
-      // Skip this FD if its dependent is a prime attribute
-      if (relation.primeAttributes.contains(fd.dependent)) {
-        continue;
-      }
-
-      if (!(fd.determinant.any(
-        (element) => relation.primeAttributes.contains(element),
-      ))) {
-        isInThirdNormalForm = false;
-        print("Transitive Dependency fount at: $fd");
-      }
-    }
-
-    return isInThirdNormalForm;
-  }
-
-  bool isInBCNF(Relation relation, bool isCheckingForNC) {
-    bool isInBCNF = true;
-    if (!isInThirdNormalForm(relation)) {
-      isInBCNF = false;
-      return isInBCNF;
-    }
-
-    for (var fd in relation.fds) {
-      if (!isSuperKey(fd.determinant, relation.candidateKeys)) {
-        isInBCNF = false;
-        print("Functional Dependency without SuperKey: $fd");
-      }
-    }
-    return isInBCNF;
-  }
-
 
 }
