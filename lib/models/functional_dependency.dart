@@ -27,6 +27,3 @@ class FunctionalDependency {
   @override
   String toString() => '${determinant.join(", ")} -> $dependent';
 }
-
-
-
