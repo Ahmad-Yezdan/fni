@@ -81,12 +81,6 @@ class Relation {
     nf = 4;
     normalForm = NormalForm.bcnf;
 
-    if (relation.attributes.isEmpty) {
-      nf = 0;
-      normalForm = NormalForm.zero;
-      return;
-    }
-
     for (var fd in relation.fds) {
       if (relation.candidateKeys.any((key) => setEquals(key, fd.determinant))) {
         continue;
@@ -96,11 +90,9 @@ class Relation {
             .any((key) => key.length > 1 && key.any((k) => fd.determinant.contains(k)))) {
           nf = 1;
           problematicFDs.add(fd);
-          print("Partial Dependency found at: $fd");
         } else {
           nf = 2;
           problematicFDs.add(fd);
-          print("Transitive Dependency found at: $fd");
         }
       }
     }
@@ -117,7 +109,6 @@ class Relation {
       if (!isSuperKey(fd.determinant, relation.candidateKeys)) {
         nf = 3;
         problematicFDs.add(fd);
-        print("Functional Dependency without SuperKey: $fd");
       }
     }
     if (nf == 3) normalForm = NormalForm.third;
