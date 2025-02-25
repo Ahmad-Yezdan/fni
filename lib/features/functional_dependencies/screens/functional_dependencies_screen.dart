@@ -26,7 +26,7 @@ class _FunctionalDependenciesScreenState
 
   void navigateToResultScreen(Relation relation) {
     Get.to(
-      ResultScreen(relation: relation),
+      () => ResultScreen(relation: relation),
       transition: Transition.rightToLeft,
       curve: Curves.linear,
     );

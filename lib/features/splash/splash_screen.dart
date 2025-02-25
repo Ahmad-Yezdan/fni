@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(const Duration(seconds: 3), () async {
       Get.off(
-        const AttributesScreen(),
+        () => const AttributesScreen(),
         transition: Transition.zoom,
         curve: Curves.linear,
         duration: Durations.long2,

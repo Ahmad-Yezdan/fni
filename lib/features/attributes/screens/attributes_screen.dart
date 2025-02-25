@@ -19,7 +19,8 @@ class _AttributesScreenState extends State<AttributesScreen> {
 
   void navigateToFunctionalDependenciesScreen(List<String> attributes) {
     Get.to(
-      FunctionalDependenciesScreen(attributes: List.from(attributes)..sort()),
+      () => FunctionalDependenciesScreen(
+          attributes: List.from(attributes)..sort()),
       transition: Transition.rightToLeft,
       curve: Curves.linear,
     );
