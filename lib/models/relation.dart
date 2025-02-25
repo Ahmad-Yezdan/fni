@@ -2,51 +2,39 @@ import 'package:fni/common/enums/enums.dart';
 import 'package:fni/models/functional_dependency.dart';
 
 class Relation {
-  final List<String> attributes; // Relation attributes
-  final List<FunctionalDependency> fds; // Functional dependencies
-  late final Set<List<String>> candidateKeys; // Candidate Keys
-  final Set<String> primeAttributes = {}; // Prime Attributes
-  late final Set<String> nonPrimeAttributes; // Non-Prime Attributes
-  late int nf; // normal form value i.e. 1,2,3 and 4
-  late NormalForm normalForm; // enum of normal form
-  List<FunctionalDependency> problematicFDs =
-      []; // problematic Functional Dependencies
+  final List<String> attributes;
+  final List<FunctionalDependency> fds;
+  late final Set<List<String>> candidateKeys;
+  final Set<String> primeAttributes = {};
+  late final Set<String> nonPrimeAttributes;
+  late int nf;
+  late NormalForm normalForm;
+  List<FunctionalDependency> problematicFDs = [];
 
   Relation(this.attributes, this.fds) {
-    if (attributes.isEmpty) {
-      throw ArgumentError('Attributes cannot be empty.');
+    if (attributes.isEmpty || fds.isEmpty) {
+      throw ArgumentError('Attributes and FDs cannot be empty.');
     }
-    final uniqueAttributes = attributes.toSet();
-    if (uniqueAttributes.length < attributes.length) {
+    if (attributes.length != attributes.toSet().length) {
       throw ArgumentError('Attributes must be unique.');
     }
-
-    if (fds.isEmpty) {
-      throw ArgumentError('Functional dependencies cannot be empty.');
-    }
-
-    final uniqueFDs = fds.toSet();
-    if (uniqueFDs.length < fds.length) {
+    if (fds.length != fds.toSet().length) {
       throw ArgumentError('Functional dependencies must be unique.');
     }
-
     init();
   }
 
   @override
-  String toString() {
-    return 'Attributes: ${attributes.join(", ")}\nFunctional Dependencies:\n${fds.join("\n")}';
-  }
+  String toString() =>
+      'Attributes: ${attributes.join(", ")}\nFunctional Dependencies:\n${fds.join("\n")}';
 
   void init() {
     candidateKeys = findCandidateKeys(this);
     for (var key in candidateKeys) {
       primeAttributes.addAll(key);
     }
-    nonPrimeAttributes = attributes
-        .where((element) => !primeAttributes.contains(element))
-        .toSet();
-
+    nonPrimeAttributes =
+        attributes.where((e) => !primeAttributes.contains(e)).toSet();
     checkNormalForm(this);
   }
 
@@ -54,7 +42,6 @@ class Relation {
       Set<String> attributes, List<FunctionalDependency> fds) {
     Set<String> closure = Set.from(attributes);
     bool changed;
-
     do {
       changed = false;
       for (var fd in fds) {
@@ -65,7 +52,6 @@ class Relation {
         }
       }
     } while (changed);
-
     return closure;
   }
 
@@ -73,73 +59,48 @@ class Relation {
     Set<List<String>> candidateKeys = {};
     int numAttributes = relation.attributes.length;
 
-    // Generate all combinations of attributes
     for (int i = 1; i < (1 << numAttributes); i++) {
-      Set<String> subset = {};
-      for (int j = 0; j < numAttributes; j++) {
-        if (i & (1 << j) != 0) {
-          subset.add(relation.attributes[j]);
-        }
-      }
+      var subset = {
+        for (int j = 0; j < numAttributes; j++)
+          if (i & (1 << j) != 0) relation.attributes[j]
+      };
 
-      // Check if the closure of the subset equals the full set of attributes
       if (attributeClosure(subset, relation.fds).length ==
           relation.attributes.length) {
         candidateKeys.add(subset.toList());
       }
     }
 
-    // Filter out non-minimal candidate keys
-    Set<List<String>> minimalKeys = {};
-    for (var key in candidateKeys) {
-      bool isMinimal = true;
-      for (var otherKey in candidateKeys) {
-        if (key.length > otherKey.length &&
-            key.toSet().containsAll(otherKey.toSet())) {
-          isMinimal = false;
-          break;
-        }
-      }
-      if (isMinimal) {
-        minimalKeys.add(key);
-      }
-    }
-
-    return minimalKeys;
+    return candidateKeys.where((key) => !candidateKeys.any(
+          (otherKey) =>
+              key.length > otherKey.length && key.toSet().containsAll(otherKey),
+        )).toSet();
   }
 
   void checkNormalForm(Relation relation) {
     nf = 4;
     normalForm = NormalForm.bcnf;
 
-    //checking for first normal form
     if (relation.attributes.isEmpty) {
       nf = 0;
       normalForm = NormalForm.zero;
       return;
     }
 
-    //checking for second normal form
-    outer:
     for (var fd in relation.fds) {
-      for (var key in relation.candidateKeys) {
-        // Skip this FD if its determinant is whole candidate key
-        if (setEquals(key, fd.determinant)) {
-          continue outer;
-        }
-      }
-
-      // Skip this FD if its dependent is a prime attribute
-      if (relation.primeAttributes.contains(fd.dependent)) {
+      if (relation.candidateKeys.any((key) => setEquals(key, fd.determinant))) {
         continue;
       }
-      // Check for partial dependencies
-      for (var key in relation.candidateKeys) {
-        // If the determinant is part of the candidate key
-        if (key.length > 1 && key.any((k) => fd.determinant.contains(k))) {
+      if (!relation.primeAttributes.contains(fd.dependent)) {
+        if (relation.candidateKeys
+            .any((key) => key.length > 1 && key.any((k) => fd.determinant.contains(k)))) {
           nf = 1;
           problematicFDs.add(fd);
-          print("Partial Dependency fount at: $fd");
+          print("Partial Dependency found at: $fd");
+        } else {
+          nf = 2;
+          problematicFDs.add(fd);
+          print("Transitive Dependency found at: $fd");
         }
       }
     }
@@ -147,28 +108,11 @@ class Relation {
       normalForm = NormalForm.first;
       return;
     }
-
-    //checking for third normal form
-    for (var fd in relation.fds) {
-      // Skip this FD if its dependent is a prime attribute
-      if (relation.primeAttributes.contains(fd.dependent)) {
-        continue;
-      }
-
-      if (!(fd.determinant.any(
-        (element) => relation.primeAttributes.contains(element),
-      ))) {
-        nf = 2;
-        problematicFDs.add(fd);
-        print("Transitive Dependency fount at: $fd");
-      }
-    }
     if (nf == 2) {
       normalForm = NormalForm.second;
       return;
     }
 
-    //checking for boyce codd normal form
     for (var fd in relation.fds) {
       if (!isSuperKey(fd.determinant, relation.candidateKeys)) {
         nf = 3;
@@ -176,28 +120,12 @@ class Relation {
         print("Functional Dependency without SuperKey: $fd");
       }
     }
-    if (nf == 3) {
-      normalForm = NormalForm.third;
-      return;
-    }
-
-    return;
+    if (nf == 3) normalForm = NormalForm.third;
   }
 
-  //heper functions for BCNF
-  bool setEquals(List<String> set1, List<String> set2) {
-    // Check if two lists contain the same elements
-    return set1.toSet().length == set2.toSet().length &&
-        set1.toSet().containsAll(set2.toSet());
-  }
+  bool isSuperKey(List<String> determinant, Set<List<String>> candidateKeys) =>
+      candidateKeys.any((key) => setEquals(key, determinant));
 
-  bool isSuperKey(List<String> determinant, Set<List<String>> candidateKeys) {
-    for (var key in candidateKeys) {
-      if (setEquals(key, determinant)) {
-        return true; // Found a candidate key matching the determinant
-      }
-    }
-    return false; // No matching candidate key found
-  }
-
+  bool setEquals(List<String> set1, List<String> set2) =>
+      set1.toSet().containsAll(set2) && set2.toSet().containsAll(set1);
 }
