@@ -41,21 +41,13 @@ class _ResultScreenState extends State<ResultScreen> {
                     ListSection(
                         title: "Candidate Keys",
                         keys: widget.relation.candidateKeys),
-                    const SizedBox(
-                      height: 8,
-                    ),
                     ListSection(
                         title: "Prime Attributes",
                         attributes: widget.relation.primeAttributes),
-                    const SizedBox(
-                      height: 8,
-                    ),
+                    if(widget.relation.nonPrimeAttributes.isNotEmpty)
                     ListSection(
                         title: "Non-Prime Attributes",
                         attributes: widget.relation.nonPrimeAttributes),
-                    const SizedBox(
-                      height: 8,
-                    ),
                     CurrentNormalForm(
                       title: "Normal Form",
                       currentCurrentNormalForm:
