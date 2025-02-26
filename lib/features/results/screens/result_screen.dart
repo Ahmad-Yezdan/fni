@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fni/common/theme/colors.dart';
 
 import 'package:fni/features/results/helper_functions/result_screen_helper.dart';
-import 'package:fni/features/results/widgets/current_normal_forn.dart';
+import 'package:fni/features/results/widgets/current_normal_form.dart';
 import 'package:fni/features/results/widgets/legent_item.dart';
 import 'package:fni/features/results/widgets/list_section.dart';
 import 'package:fni/features/results/widgets/section_title.dart';
@@ -66,11 +66,11 @@ class _ResultScreenState extends State<ResultScreen> {
                           widget.relation.normalForm.problematicdependencyName,
                       dependencies: widget.relation.problematicFDs,
                     ),
-
-                    ListSection(
-                      title: "Preventing Functional Dependencies",
-                      dependencies: widget.normalizationCompleteness.pfds,
-                    ),
+                    if (widget.relation.nf != 4)
+                      ListSection(
+                        title: "Preventing Functional Dependencies",
+                        dependencies: widget.normalizationCompleteness.pfds,
+                      ),
                     // if (widget.normalizationCompleteness.pfds.isNotEmpty)
                     Row(
                       children: [
@@ -96,34 +96,40 @@ class _ResultScreenState extends State<ResultScreen> {
                     const SizedBox(
                       height: 8,
                     ),
-                    ListSection(
-                      title:
-                          "Completeness Attributes (CA) = ${widget.normalizationCompleteness.completenessAttributes.length}",
-                      attributes: widget
-                          .normalizationCompleteness.completenessAttributes,
-                    ),
-                    ListSection(
-                      title:
-                          "Total Attributes (TA) = ${widget.normalizationCompleteness.totalAttributes.length}",
-                      attributes:
-                          widget.normalizationCompleteness.totalAttributes,
-                    ),
-                    ListSection(
-                      title:
-                          "Preventing Attributes (PA) = ${widget.normalizationCompleteness.preventingAttributes.length}",
-                      attributes:
-                          widget.normalizationCompleteness.preventingAttributes,
-                    ),
-                    ListSection(
+                    if (widget.relation.nf != 4)
+                      ListSection(
                         title:
-                            "Fuzzy Functionality = ${widget.normalizationCompleteness.fuzzyFunctionality}"),
-                    const Text('Hence,',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold)),
-                    Text(
-                        'Normalization Completeness = ${widget.normalizationCompleteness.normalizationCompleteness}',
-                        style: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w800)),
+                            "Completeness Attributes (CA) = ${widget.normalizationCompleteness.completenessAttributes.length}",
+                        attributes: widget
+                            .normalizationCompleteness.completenessAttributes,
+                      ),
+                    if (widget.relation.nf != 4)
+                      ListSection(
+                        title:
+                            "Total Attributes (TA) = ${widget.normalizationCompleteness.totalAttributes.length}",
+                        attributes:
+                            widget.normalizationCompleteness.totalAttributes,
+                      ),
+                    if (widget.relation.nf != 4)
+                      ListSection(
+                        title:
+                            "Preventing Attributes (PA) = ${widget.normalizationCompleteness.preventingAttributes.length}",
+                        attributes: widget
+                            .normalizationCompleteness.preventingAttributes,
+                      ),
+                    if (widget.relation.nf != 4)
+                      ListSection(
+                          title:
+                              "Fuzzy Functionality = ${widget.normalizationCompleteness.fuzzyFunctionality}"),
+                    if (widget.relation.nf != 4)
+                      const Text('Hence,',
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold)),
+                    if (widget.relation.nf != 4)
+                      Text(
+                          'Normalization Completeness = ${widget.normalizationCompleteness.normalizationCompleteness}',
+                          style: const TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w800)),
                     const SizedBox(
                       height: 8,
                     ),
@@ -135,11 +141,14 @@ class _ResultScreenState extends State<ResultScreen> {
                               border: Border.all(color: MyColors.black)),
                           child: StackedBarChart(
                             normalForm: widget.relation.nf.toDouble(),
-                            completeness: widget
-                                .normalizationCompleteness.fuzzyFunctionality,
-                            normalizationCompleteness: widget
-                                .normalizationCompleteness
-                                .normalizationCompleteness,
+                            completeness: widget.relation.nf != 4
+                                ? widget.normalizationCompleteness
+                                    .fuzzyFunctionality
+                                : 0,
+                            normalizationCompleteness: widget.relation.nf != 4
+                                ? widget.normalizationCompleteness
+                                    .normalizationCompleteness
+                                : 4,
                           ),
                         ),
                         const SizedBox(
