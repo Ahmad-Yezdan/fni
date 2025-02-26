@@ -40,8 +40,8 @@ class FunctionalDependencyItem extends StatelessWidget {
               children: [
                 // Determinant dropdown
                 NeumorphicDropdown(
-                  width: sizeOf.width * 0.31,
-                  label: "Determinant(s)",             
+                  width: sizeOf.width * 0.29,
+                  label: "Determinant(s)",
                   value: determinantSelections[index].isNotEmpty
                       ? determinantSelections[index].last
                       : null,
@@ -54,14 +54,14 @@ class FunctionalDependencyItem extends StatelessWidget {
                 const SizedBox(width: 8),
                 // Dependent dropdown
                 NeumorphicDropdown(
-                  width: sizeOf.width * 0.31,
+                  width: sizeOf.width * 0.29,
                   label: "Dependent",
                   value: dependentSelections[index],
                   items: attributes,
                   onChanged: (value) => onDependentChanged(
                       value, index, dependentSelections, setState),
                 ),
-                const SizedBox(width: 8),
+                const SizedBox(width: 10),
                 // Delete button
                 NeumorphicButton(
                   onPressed: onRemove,

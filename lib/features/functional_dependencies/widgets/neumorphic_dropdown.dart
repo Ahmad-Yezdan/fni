@@ -30,7 +30,7 @@ class NeumorphicDropdown extends StatelessWidget {
           decoration: InputDecoration(
             labelText: label,
             border: InputBorder.none,
-          ),       
+          ),
           dropdownColor: MyColors.scaffoldBackground,
           menuMaxHeight: MediaQuery.of(context).size.height * 0.5,
           borderRadius: BorderRadius.circular(30),
@@ -42,7 +42,7 @@ class NeumorphicDropdown extends StatelessWidget {
                   ))
               .toList(),
           isExpanded: true,
-          hint: Text('Select $label'),
+          hint: const Text('Select'),
         ),
       ),
     );
