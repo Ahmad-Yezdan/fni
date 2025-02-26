@@ -4,6 +4,7 @@ import 'package:fni/features/functional_dependencies/helper_functions/functional
 import 'package:fni/features/functional_dependencies/widgets/functional_dependency_item.dart';
 import 'package:fni/features/results/screens/result_screen.dart';
 import 'package:fni/models/functional_dependency.dart';
+import 'package:fni/models/normalization_completeness.dart';
 import 'package:fni/models/relation.dart';
 import 'package:get/get.dart';
 
@@ -24,9 +25,13 @@ class _FunctionalDependenciesScreenState
   final List<FunctionalDependency> _functionalDependencies = [];
   final ScrollController _scrollController = ScrollController();
 
-  void navigateToResultScreen(Relation relation) {
+  void navigateToResultScreen(
+      Relation relation, NormalizationCompleteness normalizationCompleteness) {
     Get.to(
-      () => ResultScreen(relation: relation),
+      () => ResultScreen(
+        relation: relation,
+        normalizationCompleteness: normalizationCompleteness,
+      ),
       transition: Transition.rightToLeft,
       curve: Curves.linear,
     );
@@ -40,7 +45,9 @@ class _FunctionalDependenciesScreenState
         _dependentSelections,
         _functionalDependencies);
     if (relation != null) {
-      navigateToResultScreen(relation);
+      NormalizationCompleteness normalizationCompleteness =
+          NormalizationCompleteness(relation);
+      navigateToResultScreen(relation, normalizationCompleteness);
     }
   }
 
