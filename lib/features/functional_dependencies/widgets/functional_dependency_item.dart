@@ -41,7 +41,7 @@ class FunctionalDependencyItem extends StatelessWidget {
                 // Determinant dropdown
                 NeumorphicDropdown(
                   width: sizeOf.width * 0.31,
-                  label: "Determinant(s)",
+                  label: "Determinant(s)",             
                   value: determinantSelections[index].isNotEmpty
                       ? determinantSelections[index].last
                       : null,
