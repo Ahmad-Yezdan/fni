@@ -25,11 +25,6 @@ class MyApp extends StatelessWidget {
           titleTextStyle:
               textTheme.headlineSmall!.copyWith(color: Colors.white),
         ),
-        textTheme: Theme.of(context).textTheme.copyWith(
-              bodyMedium: const TextStyle(
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
       ),
       home: const SplashScreen(),
     );

@@ -22,9 +22,9 @@ class ListSection extends StatelessWidget {
       children: [
         Text(title,
             style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                overflow: TextOverflow.ellipsis)),
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            )),
 
         // Conditionally add SizedBox(height: 2) only if there is content below
         if ((keys?.isNotEmpty ?? false) ||
