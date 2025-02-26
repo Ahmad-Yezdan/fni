@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fni/common/theme/colors.dart';
 
 class StackedBarChart extends StatelessWidget {
-  final double normalForm;
-  final double completeness;
-  final double normalizationCompleteness;
+  final double normalForm, completeness, normalizationCompleteness;
 
   const StackedBarChart({
     super.key,
@@ -17,12 +15,13 @@ class StackedBarChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
+      alignment: Alignment.center,
       children: [
         AspectRatio(
           aspectRatio: 16 / 9,
           child: BarChart(
             BarChartData(
-              maxY: 4, // Always fixed from 0 to 4
+              maxY: 4,
               barGroups: [
                 BarChartGroupData(
                   x: 1,
@@ -30,15 +29,12 @@ class StackedBarChart extends StatelessWidget {
                     BarChartRodData(
                       fromY: 0,
                       toY: normalForm + completeness,
-                      color: MyColors.primary, // Normal Form color
+                      color: MyColors.primary,
                       width: 40,
                       borderRadius: BorderRadius.zero,
                       rodStackItems: [
-                        BarChartRodStackItem(
-                          normalForm,
-                          normalForm + completeness,
-                          MyColors.lightprimary, // Completeness color
-                        ),
+                        BarChartRodStackItem(normalForm,
+                            normalForm + completeness, MyColors.lightprimary)
                       ],
                     ),
                   ],
@@ -46,29 +42,20 @@ class StackedBarChart extends StatelessWidget {
               ],
               titlesData: FlTitlesData(
                 leftTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    reservedSize: 12,
-                    getTitlesWidget: (value, meta) {
-                      return Text(
-                        value.toInt().toString(),
-                        style: const TextStyle(fontSize: 12),
-                      );
-                    },
-                  ),
-                ),
+                    sideTitles: SideTitles(
+                        showTitles: true,
+                        reservedSize: 12,
+                        getTitlesWidget: (value, _) => Text(
+                            value.toInt().toString(),
+                            style: const TextStyle(fontSize: 12)))),
                 bottomTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    reservedSize: 15,
-                    getTitlesWidget: (value, meta) {
-                      return Text(
-                        '$normalizationCompleteness NF',
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      );
-                    },
-                  ),
-                ),
+                    sideTitles: SideTitles(
+                        showTitles: true,
+                        reservedSize: 15,
+                        getTitlesWidget: (_, __) => Text(
+                            '$normalizationCompleteness NF',
+                            style:
+                                const TextStyle(fontWeight: FontWeight.bold)))),
                 topTitles:
                     const AxisTitles(sideTitles: SideTitles(showTitles: false)),
                 rightTitles:

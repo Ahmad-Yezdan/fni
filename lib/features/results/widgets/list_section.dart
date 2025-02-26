@@ -48,6 +48,8 @@ class ListSection extends StatelessWidget {
               .entries
               .map((e) => "${e.key + 1}. ${e.value}")
               .join('\n')),
+        if (dependencies?.isEmpty ?? false)
+          const Text("No preventing functional dependencies found."),
 
         SizedBox(height: dependencies?.isNotEmpty ?? false ? 2 : 8),
       ],

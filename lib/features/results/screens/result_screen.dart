@@ -61,8 +61,7 @@ class _ResultScreenState extends State<ResultScreen> {
                     ),
                     CurrentNormalForm(
                       title: "Current Normal Form (N) = ${widget.relation.nf}",
-                      currentCurrentNormalForm:
-                          widget.relation.normalForm.normalForm,
+                      currentNormalForm: widget.relation.normalForm.normalForm,
                       reason:
                           widget.relation.normalForm.problematicdependencyName,
                       dependencies: widget.relation.problematicFDs,
@@ -170,8 +169,7 @@ class _ResultScreenState extends State<ResultScreen> {
                           attributes: widget.relation.nonPrimeAttributes),
                     CurrentNormalForm(
                       title: "Normal Form",
-                      currentCurrentNormalForm:
-                          widget.relation.normalForm.normalForm,
+                      currentNormalForm: widget.relation.normalForm.normalForm,
                       reason:
                           widget.relation.normalForm.problematicdependencyName,
                       dependencies: widget.relation.problematicFDs,

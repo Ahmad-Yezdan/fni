@@ -56,21 +56,13 @@ void showRelationDetailsDialog(
             const SizedBox(height: 2),
 
             // List of Functional Dependencies
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: fds
-                  .asMap()
-                  .entries
-                  .map((fd) => Text(
-                        "${fd.key + 1}. ${fd.value}",
-                        style: TextStyle(
-                          color: pfds.contains(fd.value)
-                              ? Colors.red
-                              : MyColors.black,
-                        ),
-                      ))
-                  .toList(),
-            ),
+            ...fds.asMap().entries.map((fd) => Text(
+                  "${fd.key + 1}. ${fd.value}",
+                  style: TextStyle(
+                      color: pfds.contains(fd.value)
+                          ? Colors.red
+                          : MyColors.black),
+                )),
           ],
         ),
       ),

@@ -4,14 +4,14 @@ import 'package:fni/models/functional_dependency.dart';
 class CurrentNormalForm extends StatelessWidget {
   final String title, currentNormalForm;
   final String? reason;
-  final List<FunctionalDependency>? dependencies;
+  final List<FunctionalDependency> dependencies;
 
   const CurrentNormalForm({
     super.key,
     required this.title,
     required this.currentNormalForm,
     this.reason,
-    this.dependencies,
+    required this.dependencies,
   });
 
   @override
@@ -29,8 +29,8 @@ class CurrentNormalForm extends StatelessWidget {
               TextSpan(text: currentNormalForm, style: const TextStyle(fontWeight: FontWeight.w600)),
               if (reason == null) const TextSpan(text: '.'),
                             if (reason != null) TextSpan(text: ' due to following $reason:'),
-              if (dependencies != null)
-                ...dependencies!.asMap().entries.map((entry) => TextSpan(text: "\n${entry.key + 1}. ${entry.value}")),
+              if (dependencies.isNotEmpty)
+                ...dependencies.asMap().entries.map((entry) => TextSpan(text: "\n${entry.key + 1}. ${entry.value}")),
             ],
           ),
         ),
