@@ -43,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
             height: 25,
           ),
           DefaultTextStyle(
-            style: textTheme.headlineSmall!.copyWith(color: Colors.black),
+            style: textTheme.headlineSmall!.copyWith(color: MyColors.black),
             child: AnimatedTextKit(
               isRepeatingAnimation: false,
               animatedTexts: [
