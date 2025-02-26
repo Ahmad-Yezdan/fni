@@ -19,22 +19,31 @@ class CurrentNormalForm extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        Text(title,
+            style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                overflow: TextOverflow.ellipsis)),
         const SizedBox(height: 2),
         RichText(
           text: TextSpan(
             style: DefaultTextStyle.of(context).style,
             children: [
               const TextSpan(text: 'The table is in '),
-              TextSpan(text: currentCurrentNormalForm, style: const TextStyle(fontWeight: FontWeight.w600)),
+              TextSpan(
+                  text: currentCurrentNormalForm,
+                  style: const TextStyle(fontWeight: FontWeight.w600)),
+              if (reason == null) const TextSpan(text: '.'),
               if (reason != null) TextSpan(text: ' due to following $reason:'),
               if (dependencies != null)
                 ...dependencies!.asMap().entries.map(
-                      (entry) => TextSpan(text: "\n${entry.key + 1}. ${entry.value}"),
+                      (entry) =>
+                          TextSpan(text: "\n${entry.key + 1}. ${entry.value}"),
                     ),
             ],
           ),
         ),
+        const SizedBox(height: 8),
       ],
     );
   }
