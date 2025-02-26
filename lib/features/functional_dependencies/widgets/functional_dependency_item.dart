@@ -33,41 +33,44 @@ class FunctionalDependencyItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Determinant dropdown
-              NeumorphicDropdown(
-                width: sizeOf.width * 0.31,
-                label: "Determinant(s)",
-                value: determinantSelections[index].isNotEmpty
-                    ? determinantSelections[index].last
-                    : null,
-                items: attributes,
-                onChanged: (value) => onDeterminantChanged(
-                    value, index, determinantSelections, setState),
-              ),
-              const SizedBox(width: 8),
-              const Icon(Icons.arrow_forward),
-              const SizedBox(width: 8),
-              // Dependent dropdown
-              NeumorphicDropdown(
-                width: sizeOf.width * 0.31,
-                label: "Dependent",
-                value: dependentSelections[index],
-                items: attributes,
-                onChanged: (value) => onDependentChanged(
-                    value, index, dependentSelections, setState),
-              ),
-              const SizedBox(width: 8),
-              // Delete button
-              NeumorphicButton(
-                onPressed: onRemove,
-                style: NeumStyle.circle.copyWith(depth: 4),
-                padding: const EdgeInsets.all(10),
-                child: const Icon(Icons.delete, size: 22),
-              ),
-            ],
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Determinant dropdown
+                NeumorphicDropdown(
+                  width: sizeOf.width * 0.31,
+                  label: "Determinant(s)",
+                  value: determinantSelections[index].isNotEmpty
+                      ? determinantSelections[index].last
+                      : null,
+                  items: attributes,
+                  onChanged: (value) => onDeterminantChanged(
+                      value, index, determinantSelections, setState),
+                ),
+                const SizedBox(width: 8),
+                const Icon(Icons.arrow_forward),
+                const SizedBox(width: 8),
+                // Dependent dropdown
+                NeumorphicDropdown(
+                  width: sizeOf.width * 0.31,
+                  label: "Dependent",
+                  value: dependentSelections[index],
+                  items: attributes,
+                  onChanged: (value) => onDependentChanged(
+                      value, index, dependentSelections, setState),
+                ),
+                const SizedBox(width: 8),
+                // Delete button
+                NeumorphicButton(
+                  onPressed: onRemove,
+                  style: NeumStyle.circle.copyWith(depth: 4),
+                  padding: const EdgeInsets.all(10),
+                  child: const Icon(Icons.delete, size: 22),
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 8),
           Wrap(
