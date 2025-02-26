@@ -17,42 +17,36 @@ void showRelationDetailsDialog(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Attributes Table Header
+            const Text("Attributes:",
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    )),
+            const SizedBox(height: 2),
             Wrap(
-              alignment: WrapAlignment.center,
-              children: attributes.asMap().entries.map((entry) {
-                int index = entry.key;
-                String attr = entry.value;
-
+              alignment: WrapAlignment.start,
+              spacing: 4,
+              children: attributes.map((attribute) {
                 return Container(
                   padding: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    border: Border(
-                      top: const BorderSide(
-                          color: MyColors.black), // Top border for all
-                      bottom: const BorderSide(
-                          color: MyColors.black), // Bottom border for all
-                      right: const BorderSide(
-                          color: MyColors.black), // Right border for all
-                      left: index == 0 // Left border only for first attribute
-                          ? const BorderSide(color: MyColors.black)
-                          : BorderSide.none,
-                    ),
-                  ),
+                  margin: const EdgeInsets.only(top: 4),
+                  decoration:
+                      BoxDecoration(border: Border.all(color: MyColors.black)),
                   child: Text(
-                    attr,
+                    attribute,
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 );
               }).toList(),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 8),
 
             // Functional Dependencies Section
             const Text("Functional Dependencies:",
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    overflow: TextOverflow.ellipsis)),
+                    )),
             const SizedBox(height: 2),
 
             // List of Functional Dependencies
