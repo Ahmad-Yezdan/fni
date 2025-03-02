@@ -4,7 +4,7 @@ import 'package:fni/common/utils.dart';
 // validating attributes
 List<String>? validateAttributes(BuildContext context, String? value) {
   if (value == null || value.isEmpty) {
-    showSnackBar(context, 'Please enter the attributes.');
+    showSnackBar(context, 'Attributes cannot be empty.');
     return null;
   }
   value = value.trim();

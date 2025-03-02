@@ -13,7 +13,10 @@ class Relation {
 
   Relation(this.attributes, this.fds) {
     if (attributes.isEmpty || fds.isEmpty) {
-      throw ArgumentError('Attributes and FDs cannot be empty.');
+      throw ArgumentError('Attributes cannot be empty.');
+    }
+    if(fds.isEmpty){
+      throw ArgumentError('Functional dependencies cannot be empty.');
     }
     if (attributes.length != attributes.toSet().length) {
       throw ArgumentError('Attributes must be unique.');
