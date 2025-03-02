@@ -4,7 +4,7 @@ import 'package:fni/common/utils.dart';
 // validating attributes
 List<String>? validateAttributes(BuildContext context, String? value) {
   if (value == null || value.isEmpty) {
-    showSnackBar(context, 'Please enter the attributes.');
+    showSnackBar(context, 'Attributes cannot be empty.');
     return null;
   }
   value = value.trim();
@@ -40,9 +40,9 @@ List<String>? validateAttributes(BuildContext context, String? value) {
     // Regex validation
     if (!RegExp(r'^[a-zA-Z][a-zA-Z0-9_]*[a-zA-Z0-9]*$').hasMatch(attribute)) {
       String attributeName =
-          attribute.length >= 7 ? '${attribute.substring(0, 7)}...' : attribute;
+          attribute.length > 7 ? '${attribute.substring(0, 7)}...' : attribute;
       showSnackBar(context,
-          'Invalid attribute name: "$attributeName". Attribute names must start with a letter and can only contain letters, numbers, or underscores.');
+          '"$attributeName" is an invalid attribute name. Attribute names must start with a letter and can only contain letters, numbers, or underscores.');
       return null;
     }
 
@@ -66,9 +66,9 @@ List<String>? validateAttributes(BuildContext context, String? value) {
     // Length restriction
     if (attribute.length > 64) {
       String attributeName =
-          attribute.length >= 7 ? '${attribute.substring(0, 7)}...' : attribute;
+          attribute.length > 7 ? '${attribute.substring(0, 7)}...' : attribute;
       showSnackBar(context,
-          'Attribute name "$attributeName" exceeds the maximum length of 64 characters.');
+          '"$attributeName" exceeds the maximum length of 64 characters.');
       return null;
     }
   }

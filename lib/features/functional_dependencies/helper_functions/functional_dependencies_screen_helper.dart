@@ -3,7 +3,6 @@ import 'package:fni/common/utils.dart';
 import 'package:fni/models/functional_dependency.dart';
 import 'package:fni/models/relation.dart';
 
-
 void addFunctionalDependency(
     List<List<String>> determinantSelections,
     List<String?> dependentSelections,
@@ -51,16 +50,21 @@ Relation? validateFunctionalDependencies(
   functionalDependencies.clear();
   Set<FunctionalDependency> uniqueFDs = {};
 
+  if (determinantSelections.isEmpty && determinantSelections.isEmpty) {
+    showSnackBar(context, 'Functional dependencies cannot be empty.');
+    return null;
+  }
+
   for (int i = 0; i < determinantSelections.length; i++) {
     final determinant = determinantSelections[i];
     final dependent = dependentSelections[i];
 
     if (determinant.isEmpty) {
-      showSnackBar(context, "Determinant(s) at FD no ${i + 1} is empty.");
+      showSnackBar(context, "Determinant(s) at FD ${i + 1} is empty.");
       return null;
     }
     if (dependent == null) {
-      showSnackBar(context, "Dependent at FD no ${i + 1} is empty.");
+      showSnackBar(context, "Dependent at FD ${i + 1} is empty.");
       return null;
     }
 
