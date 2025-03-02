@@ -1,4 +1,3 @@
-
 import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:fni/common/constants/neumorphic_style.dart';
 
@@ -16,14 +15,15 @@ class NeumLogo extends StatelessWidget {
     return Center(
       child: Neumorphic(
         style: NeumStyle.circle.copyWith(color: bgColor),
-        child:  Padding(
+        child: Padding(
           padding: const EdgeInsets.all(28.0),
           child: Text(
-            "fni",
+            "FNI",
             style: TextStyle(
                 fontSize: 127,
-                fontFamily: "ArchivoBlack",
-                color: textColor),
+                fontFamily: "Rubik",
+                color: textColor,
+                fontWeight: FontWeight.w600),
           ),
         ),
       ),
