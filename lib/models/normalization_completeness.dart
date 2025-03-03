@@ -11,7 +11,7 @@ class NormalizationCompleteness {
   final Set<String> completenessAttributes = {};
   late final Set<String> totalAttributes;
   late double fuzzyFunctionality;
-  late final double normalizationCompleteness;
+  late double normalizationCompleteness;
 
   NormalizationCompleteness(this.relation) {
     init();
@@ -41,11 +41,12 @@ class NormalizationCompleteness {
         (((completenessAttributes.length / totalAttributes.length) +
                 (1 - (preventingAttributes.length / totalAttributes.length))) /
             2);
-    fuzzyFunctionality = (fuzzyFunctionality * 100).floor() /
-        100; //flooring Fuzzy Functionality upto 2 decimal places
+    fuzzyFunctionality = double.parse(fuzzyFunctionality.toStringAsFixed(2));
 
     //initializing Normalization Completeness
     normalizationCompleteness = relation.nf + fuzzyFunctionality;
+    normalizationCompleteness =
+        double.parse(normalizationCompleteness.toStringAsFixed(2));
   }
 
   List<FunctionalDependency> findPFDs() {
