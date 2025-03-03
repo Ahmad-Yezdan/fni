@@ -39,10 +39,8 @@ List<String>? validateAttributes(BuildContext context, String? value) {
 
     // Regex validation
     if (!RegExp(r'^[a-zA-Z][a-zA-Z0-9_]*[a-zA-Z0-9]*$').hasMatch(attribute)) {
-      String attributeName =
-          attribute.length > 7 ? '${attribute.substring(0, 7)}...' : attribute;
       showSnackBar(context,
-          '"$attributeName" is an invalid attribute name. Attribute names must start with a letter and can only contain letters, numbers, or underscores.');
+          '"${truncate(attribute, 7)}" is an invalid attribute name. Attribute names must start with a letter and can only contain letters, numbers, or underscores.');
       return null;
     }
 
@@ -65,10 +63,8 @@ List<String>? validateAttributes(BuildContext context, String? value) {
 
     // Length restriction
     if (attribute.length > 64) {
-      String attributeName =
-          attribute.length > 7 ? '${attribute.substring(0, 7)}...' : attribute;
       showSnackBar(context,
-          '"$attributeName" exceeds the maximum length of 64 characters.');
+          '"${truncate(attribute, 7)}" exceeds the maximum length of 64 characters.');
       return null;
     }
   }

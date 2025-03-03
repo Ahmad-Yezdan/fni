@@ -1,5 +1,6 @@
 import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:fni/common/constants/neumorphic_style.dart';
+import 'package:fni/common/utils.dart';
 
 class NeumorphicChip extends StatelessWidget {
   final String text;
@@ -17,7 +18,7 @@ class NeumorphicChip extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(text),
+          Text(truncate(text, 15)),
           const SizedBox(width: 6),
           GestureDetector(
             onTap: onDeleted,
