@@ -1,6 +1,7 @@
 import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:fni/common/constants/neumorphic_style.dart';
 import 'package:fni/common/theme/colors.dart';
+import 'package:fni/common/utils.dart';
 
 class NeumorphicDropdown extends StatelessWidget {
   final double width;
@@ -36,13 +37,13 @@ class NeumorphicDropdown extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
           onChanged: onChanged,
           items: items.map((item) {
-            int index = items.indexOf(item); 
+            int index = items.indexOf(item);
             return DropdownMenuItem<String>(
               value: item,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(item),
+                  Text(truncate(item, 15)),
                   if (index < items.length - 1) const Divider(),
                 ],
               ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fni/common/theme/colors.dart';
+import 'package:fni/common/utils.dart';
 import 'package:fni/models/functional_dependency.dart';
 
 void showRelationDetailsDialog(
@@ -19,9 +20,9 @@ void showRelationDetailsDialog(
             // Attributes Table Header
             const Text("Attributes:",
                 style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    )),
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                )),
             const SizedBox(height: 2),
             Wrap(
               alignment: WrapAlignment.start,
@@ -33,7 +34,7 @@ void showRelationDetailsDialog(
                   decoration:
                       BoxDecoration(border: Border.all(color: MyColors.black)),
                   child: Text(
-                    attribute,
+                    truncate(attribute, 15),
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 );
@@ -44,9 +45,9 @@ void showRelationDetailsDialog(
             // Functional Dependencies Section
             const Text("Functional Dependencies:",
                 style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    )),
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                )),
             const SizedBox(height: 2),
 
             // List of Functional Dependencies

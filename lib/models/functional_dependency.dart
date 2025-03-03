@@ -1,3 +1,5 @@
+import 'package:fni/common/utils.dart';
+
 class FunctionalDependency {
   final List<String> determinant;
   final String dependent;
@@ -25,5 +27,7 @@ class FunctionalDependency {
   int get hashCode => Object.hash(dependent, determinant.join(','));
 
   @override
-  String toString() => '${determinant.join(", ")} -> $dependent';
+  String toString() {
+    return '${determinant.map((item) => truncate(item, 15)).join(", ")} -> ${truncate(dependent, 15)}';
+  }
 }
