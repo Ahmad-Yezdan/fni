@@ -75,18 +75,30 @@ class _FunctionalDependenciesScreenState
                 itemCount: _determinantSelections.length,
                 controller: _scrollController,
                 itemBuilder: (context, index) {
-                  return FunctionalDependencyItem(
-                    key: UniqueKey(),
-                    index: index,
-                    sizeOf: sizeOf,
-                    attributes: widget.attributes,
-                    determinantSelections: _determinantSelections,
-                    dependentSelections: _dependentSelections,
-                    setState: setState,
-                    onRemove: () => setState(() {
-                      _determinantSelections.removeAt(index);
-                      _dependentSelections.removeAt(index);
-                    }),
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text("FD${index + 1}:"),
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: FunctionalDependencyItem(
+                          key: UniqueKey(),
+                          index: index,
+                          sizeOf: sizeOf,
+                          attributes: widget.attributes,
+                          determinantSelections: _determinantSelections,
+                          dependentSelections: _dependentSelections,
+                          setState: setState,
+                          onRemove: () => setState(() {
+                            _determinantSelections.removeAt(index);
+                            _dependentSelections.removeAt(index);
+                          }),
+                        ),
+                      ),
+                    ],
                   );
                 },
               ),
