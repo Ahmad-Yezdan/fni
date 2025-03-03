@@ -35,14 +35,30 @@ class NeumorphicDropdown extends StatelessWidget {
           menuMaxHeight: MediaQuery.of(context).size.height * 0.5,
           borderRadius: BorderRadius.circular(30),
           onChanged: onChanged,
-          items: items
-              .map((attr) => DropdownMenuItem<String>(
-                    value: attr,
-                    child: Text(attr),
-                  ))
-              .toList(),
+          items: items.map((item) {
+            int index = items.indexOf(item); 
+            return DropdownMenuItem<String>(
+              value: item,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(item),
+                  if (index < items.length - 1) const Divider(),
+                ],
+              ),
+            );
+          }).toList(),
           isExpanded: true,
           hint: const Text('Select'),
+          selectedItemBuilder: (context) {
+            return items.map((item) {
+              return Text(
+                item,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              );
+            }).toList();
+          },
         ),
       ),
     );
