@@ -21,7 +21,7 @@ class StackedBarChart extends StatelessWidget {
           aspectRatio: 16 / 9,
           child: BarChart(
             BarChartData(
-              maxY: 4,
+              maxY: 4.5,
               barGroups: [
                 BarChartGroupData(
                   x: 1,
@@ -45,9 +45,15 @@ class StackedBarChart extends StatelessWidget {
                     sideTitles: SideTitles(
                         showTitles: true,
                         reservedSize: 12,
-                        getTitlesWidget: (value, _) => Text(
-                            value.toInt().toString(),
-                            style: const TextStyle(fontSize: 12)))),
+                        getTitlesWidget: (value, _) {
+                          if (value >= 0 && value <= 4 && value % 1 == 0) {
+                            return Text(
+                              value.toInt().toString(),
+                              style: const TextStyle(fontSize: 12),
+                            );
+                          }
+                          return Container();
+                        })),
                 bottomTitles: AxisTitles(
                     sideTitles: SideTitles(
                         showTitles: true,
@@ -61,7 +67,8 @@ class StackedBarChart extends StatelessWidget {
                 rightTitles:
                     const AxisTitles(sideTitles: SideTitles(showTitles: false)),
               ),
-              gridData: const FlGridData(show: true),
+              gridData: const FlGridData(
+                  show: true, drawVerticalLine: false, horizontalInterval: 1),
               borderData: FlBorderData(show: false),
             ),
           ),
