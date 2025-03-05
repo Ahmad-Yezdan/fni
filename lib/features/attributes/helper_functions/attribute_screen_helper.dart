@@ -23,17 +23,13 @@ List<String>? validateAttributes(BuildContext context, String? value) {
 
   // Check for uniqueness
   if (attributes.toSet().length != attributes.length) {
-    ///TODO: select one error message
-    // showSnackBar(context, 'Attribute names must be unique.');
     showSnackBar(context, 'Duplicate attribute names are not allowed.');
     return null;
   }
 
   for (var attribute in attributes) {
     if (attribute.isEmpty) {
-      ///TODO: select one error message
       showSnackBar(context, 'Attributes cannot be empty between commas.');
-      // showSnackBar(context, 'Empty attributes are not allowed.');
       return null;
     }
 
@@ -43,23 +39,6 @@ List<String>? validateAttributes(BuildContext context, String? value) {
           '"${truncate(attribute, 7)}" is an invalid attribute name. Attribute names must start with a letter and can only contain letters, numbers, or underscores.');
       return null;
     }
-
-    //TODO: confirm for Sir whether to add or not add this check
-    // Reserved keyword check
-    // final reservedKeywords = {
-    //   'SELECT',
-    //   'FROM',
-    //   'WHERE',
-    //   'INSERT',
-    //   'UPDATE',
-    //   'DELETE'
-    // };
-
-    // if (reservedKeywords.contains(attribute.toUpperCase())) {
-    //   showSnackBar(context,
-    //       'Attribute name "$attribute" is a reserved keyword and cannot be used.');
-    //   return null;
-    // }
 
     // Length restriction
     if (attribute.length > 64) {
