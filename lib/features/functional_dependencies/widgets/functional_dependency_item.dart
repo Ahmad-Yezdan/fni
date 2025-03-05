@@ -36,7 +36,6 @@ class FunctionalDependencyItem extends StatelessWidget {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
-              mainAxisSize: MainAxisSize.min,
               children: [
                 // Determinant dropdown
                 NeumorphicDropdown(
@@ -49,9 +48,9 @@ class FunctionalDependencyItem extends StatelessWidget {
                   onChanged: (value) => onDeterminantChanged(
                       value, index, determinantSelections, setState),
                 ),
-                const SizedBox(width: 8),
+                SizedBox(width: sizeOf.width * 0.02),
                 const Icon(Icons.arrow_forward),
-                const SizedBox(width: 8),
+                SizedBox(width: sizeOf.width * 0.02),
                 // Dependent dropdown
                 NeumorphicDropdown(
                   width: sizeOf.width * 0.29,
@@ -61,7 +60,7 @@ class FunctionalDependencyItem extends StatelessWidget {
                   onChanged: (value) => onDependentChanged(
                       value, index, dependentSelections, setState),
                 ),
-                const SizedBox(width: 10),
+                SizedBox(width: sizeOf.width * 0.04),
                 // Delete button
                 NeumorphicButton(
                   onPressed: onRemove,
