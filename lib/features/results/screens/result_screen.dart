@@ -173,7 +173,6 @@ class _ResultScreenState extends State<ResultScreen> {
                     ListSection(
                         title: "Prime Attributes",
                         attributes: widget.relation.primeAttributes),
-                    if (widget.relation.nonPrimeAttributes.isNotEmpty)
                       ListSection(
                           title: "Non-Prime Attributes",
                           attributes: widget.relation.nonPrimeAttributes),

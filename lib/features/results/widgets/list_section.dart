@@ -26,12 +26,10 @@ class ListSection extends StatelessWidget {
               fontSize: 16,
               fontWeight: FontWeight.bold,
             )),
- 
         if ((keys?.isNotEmpty ?? false) ||
             (attributes?.isNotEmpty ?? false) ||
             (dependencies?.isNotEmpty ?? false))
           const SizedBox(height: 2),
-
         if (keys?.isNotEmpty ?? false)
           Text(keys!.toList().asMap().entries.map((e) {
             String truncatedValues =
@@ -39,10 +37,11 @@ class ListSection extends StatelessWidget {
 
             return "${e.key + 1}. $truncatedValues";
           }).join('\n')),
-
         if (attributes?.isNotEmpty ?? false)
           Text(attributes!.map((attr) => truncate(attr, 15)).join(", ")),
-
+        if ((attributes?.isEmpty ?? false) && title == 'Non-Prime Attributes')
+          const Text(
+              "There are no non-prime attributes, as all attributes are part of candidate keys."),
         if (dependencies?.isNotEmpty ?? false)
           Text(dependencies!
               .asMap()
@@ -50,8 +49,7 @@ class ListSection extends StatelessWidget {
               .map((e) => "${e.key + 1}. ${e.value}")
               .join('\n')),
         if (dependencies?.isEmpty ?? false)
-          const Text("No preventing functional dependencies found."),
-
+          const Text("No preventing functional dependencies detected."),
         SizedBox(height: dependencies?.isNotEmpty ?? false ? 2 : 8),
       ],
     );
