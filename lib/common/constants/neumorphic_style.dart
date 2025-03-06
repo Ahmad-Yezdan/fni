@@ -1,10 +1,7 @@
-
-
 import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:fni/common/theme/colors.dart';
 
 class NeumStyle {
-
   static const circle = NeumorphicStyle(
     depth: 6,
     intensity: 1,
@@ -12,7 +9,7 @@ class NeumStyle {
     boxShape: NeumorphicBoxShape.circle(),
     color: MyColors.scaffoldBackground,
   );
-  static final rect = NeumorphicStyle(
+  static final _rect = NeumorphicStyle(
     depth: -4,
     intensity: 1,
     surfaceIntensity: 0,
@@ -21,4 +18,6 @@ class NeumStyle {
     ),
     color: MyColors.scaffoldBackground,
   );
+
+  static NeumorphicStyle get rect => _rect;
 }
