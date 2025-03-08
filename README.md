@@ -8,4 +8,4 @@ This software is designed to provide a more comprehensive understanding of datab
 
 ## License
 
-[MIT](LICENSE)
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
