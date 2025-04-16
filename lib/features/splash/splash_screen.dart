@@ -30,31 +30,37 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
+    var sizeOf = MediaQuery.sizeOf(context);
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const NeumLogo(
-            textColor: MyColors.white,
-            bgColor: MyColors.primary,
-          ),
-          const SizedBox(
-            height: 25,
-          ),
-          DefaultTextStyle(
-            style: textTheme.headlineSmall!.copyWith(color: MyColors.black),
-            child: AnimatedTextKit(
-              isRepeatingAnimation: false,
-              animatedTexts: [
-                TypewriterAnimatedText(
-                  'Fuzzy Normalization Index',
-                  speed: const Duration(milliseconds: 100),
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: sizeOf.height * 0.9,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const NeumLogo(
+                textColor: MyColors.white,
+                bgColor: MyColors.primary,
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              DefaultTextStyle(
+                style: textTheme.headlineSmall!.copyWith(
+                  color: MyColors.black,
                 ),
-              ],
-            ),
-          )
-        ],
+                child: AnimatedTextKit(
+                  isRepeatingAnimation: false,
+                  animatedTexts: [
+                    TypewriterAnimatedText('Fuzzy Normalization Index',
+                        speed: const Duration(milliseconds: 100),
+                        textAlign: TextAlign.center),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

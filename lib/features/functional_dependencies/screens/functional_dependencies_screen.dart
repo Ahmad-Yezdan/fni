@@ -20,8 +20,10 @@ class FunctionalDependenciesScreen extends StatefulWidget {
 
 class _FunctionalDependenciesScreenState
     extends State<FunctionalDependenciesScreen> {
-  final List<List<String>> _determinantSelections = [];
-  final List<String?> _dependentSelections = [];
+  // by default initializing 2 empty FDs
+  final List<List<String>> _determinantSelections = [[], []];
+  // by default initializing 2 empty FDs
+  final List<String?> _dependentSelections = [null, null];
   final List<FunctionalDependency> _functionalDependencies = [];
   final ScrollController _scrollController = ScrollController();
 

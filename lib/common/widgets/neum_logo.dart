@@ -12,15 +12,18 @@ class NeumLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.sizeOf(context).width;
+    var padding = EdgeInsets.all(width >= 361 ? 28 : width * 0.077);
+    double fontSize = width >= 361 ? 127 : width * 0.33;
     return Center(
       child: Neumorphic(
         style: NeumStyle.circle.copyWith(color: bgColor),
         child: Padding(
-          padding: const EdgeInsets.all(28.0),
+          padding: padding,
           child: Text(
             "FNI",
             style: TextStyle(
-                fontSize: 127,
+                fontSize: fontSize,
                 fontFamily: "Rubik",
                 color: textColor,
                 fontWeight: FontWeight.w600),
